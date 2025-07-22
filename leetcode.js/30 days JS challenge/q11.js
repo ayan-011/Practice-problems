@@ -11,7 +11,7 @@
 
 // count(): returns the count of un-expired keys.
 
-
+ 
 
 class TimeLimitedCache {
   constructor() {
@@ -43,6 +43,19 @@ class TimeLimitedCache {
   }
 }
 
+
+
+const cache = new TimeLimitExceed();
+
+console.log(cache.set("token", "123456", 3000)); // false (not exists before)
+console.log(cache.get("token")); // "123456"
+console.log(cache.count()); // 1
+
+setTimeout(() => {
+  console.log("After 4 seconds:");
+  console.log(cache.get("token")); // -1 (expired)
+  console.log(cache.count()); // 0
+}, 4000);
 
 
 
@@ -85,4 +98,6 @@ class TimeLimitedCache {
 //      count(){ 
 //         return this.cache.size
 //      }
+
+
 
