@@ -7,3 +7,23 @@
 
 //     If the fn completes within the time limit of t milliseconds, the time limited function should resolve with the result.
 //     If the execution of the fn exceeds the time limit, the time limited function should reject with the string "Time Limit Exceeded".
+
+
+
+
+/**
+ * @param {Function} fn
+ * @param {number} t
+ * @return {Function}
+ */
+var timeLimit = function(fn, t) {
+    
+    return async function(...args) {
+        
+    }
+};
+
+/**
+ * const limited = timeLimit((t) => new Promise(res => setTimeout(res, t)), 100);
+ * limited(150).catch(console.log) // "Time Limit Exceeded" at t=100ms
+ */
