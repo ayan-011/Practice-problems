@@ -12,3 +12,26 @@
 
 
 
+var totalFruit = function(fruits) {
+    let maxFruits = 0;
+    let start = 0;
+    let basket = new Map();
+
+    for (let end = 0; end < fruits.length; end++) {
+        let fruit = fruits[end];
+        basket.set(fruit, (basket.get(fruit) || 0) + 1);
+
+        while (basket.size > 2) {
+            let leftFruit = fruits[start];
+            basket.set(leftFruit, basket.get(leftFruit) - 1);
+            if (basket.get(leftFruit) === 0) {
+                basket.delete(leftFruit);
+            }
+            start++;
+        }
+
+        maxFruits = Math.max(maxFruits, end - start + 1);
+    }
+
+    return maxFruits;
+};
