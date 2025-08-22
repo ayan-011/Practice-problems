@@ -1,0 +1,50 @@
+//    Soup Servings
+
+
+
+
+// You have two soups, A and B, each starting with n mL. On every turn, one of the following four serving operations is chosen at random, each with probability 0.25 independent of all previous turns:
+
+//     pour 100 mL from type A and 0 mL from type B
+//     pour 75 mL from type A and 25 mL from type B
+//     pour 50 mL from type A and 50 mL from type B
+//     pour 25 mL from type A and 75 mL from type B
+
+// Note:
+
+//     There is no operation that pours 0 mL from A and 100 mL from B.
+//     The amounts from A and B are poured simultaneously during the turn.
+//     If an operation asks you to pour more than you have left of a soup, pour all that remains of that soup.
+
+// The process stops immediately after any turn in which one of the soups is used up.
+
+// Return the probability that A is used up before B, plus half the probability that both soups are used up in the same turn. Answers within 10-5 of the actual answer will be accepted.
+
+
+
+
+
+
+
+var soupServings = function(n) {
+    if (n > 5000) return 1.0;
+    const units = Math.ceil(n / 25);
+    const cache = Array.from({ length: units + 1 }, () => Array(units + 1).fill(null));
+
+    const calcProb = (soupA, soupB) => {
+        if (soupA <= 0 && soupB <= 0) return 0.5;
+        if (soupA <= 0) return 1.0;
+        if (soupB <= 0) return 0.0;
+        if (cache[soupA][soupB] !== null) return cache[soupA][soupB];
+        let prob = 0.25 * (
+            calcProb(soupA - 4, soupB) +
+            calcProb(soupA - 3, soupB - 1) +
+            calcProb(soupA - 2, soupB - 2) +
+            calcProb(soupA - 1, soupB - 3)
+        );
+        cache[soupA][soupB] = prob;
+        return prob;
+    };
+
+    return calcProb(units, units);
+};  
